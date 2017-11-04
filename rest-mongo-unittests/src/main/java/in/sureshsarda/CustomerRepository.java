@@ -16,5 +16,7 @@ public interface CustomerRepository extends MongoRepository<Customer, String> {
 	public List<Customer> findAllByFirstNameOrLastName(String firstName, String lastName);
 	
 	public List<Customer> findAllByFirstNameAndLastName(String firstName, String lastName);
+	
+	public void deleteById(String id);
 
 }

@@ -3,6 +3,7 @@ package in.sureshsarda;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,9 +24,9 @@ public class CustomerController {
 				@RequestParam String firstName,
 				@RequestParam String lastName) {
 
-		if (firstName == null) {
+		if (firstName == null && lastName != null) {
 			return customerRepo.findAllByLastName(lastName);
-		} else if (lastName == null) {
+		} else if (lastName == null && firstName != null) {
 			return customerRepo.findAllByFirstName(firstName);
 		} else {
 			return customerRepo.findAllByFirstNameAndLastName(firstName, lastName);
@@ -40,6 +41,10 @@ public class CustomerController {
 				@RequestBody Customer cust) {
 		Customer saved = customerRepo.insert(cust);
 		return saved.id;
+	}
+
+	public void delete(@RequestParam String objectId) {
+		customerRepo.deleteById(objectId);
 	}
 
 }
