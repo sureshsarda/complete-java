@@ -1,7 +1,17 @@
 package in.sureshsarda;
 
+import java.io.IOException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 
 import com.mongodb.Mongo;
@@ -38,4 +48,31 @@ public class App extends AbstractMongoConfiguration {
 	// public @Bean MongoClient mongoClient() {
 	// return new MongoClient();
 	// }
+
+	@Bean
+	public Filter getTimepassFilter() {
+		return new Filter() {
+
+			@Override
+			public void init(FilterConfig filterConfig) throws ServletException {
+				System.out.println("Initing a filter");
+
+			}
+
+			@Override
+			public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+						throws IOException, ServletException {
+				System.out.println("Wow! I got a request!");
+
+			}
+
+			@Override
+			public void destroy() {
+				// TODO Auto-generated method stub
+
+			}
+
+		};
+	}
+
 }
